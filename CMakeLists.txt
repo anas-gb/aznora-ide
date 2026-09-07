@@ -17,6 +17,7 @@ add_library(aznora_core
     src/core/project/Project.cpp
     src/core/search/SearchEngine.cpp
     src/core/settings/Settings.cpp
+    src/core/terminal/TerminalService.cpp
     src/core/workspace/Workspace.cpp
     src/core/workspace/WorkspaceManager.cpp
 )
