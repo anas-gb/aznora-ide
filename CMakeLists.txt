@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_library(aznora_core
+    src/core/editor/EditorManager.cpp
     src/core/filesystem/FileExplorer.cpp
     src/core/filesystem/FileSystemService.cpp
     src/core/project/Project.cpp
