@@ -26,7 +26,8 @@ bool WorkspaceManager::createWorkspace(
     workspace <<
 R"({
     "name": ")" << name << R"(",
-    "version": "0.0.1"
+    "version": "0.1.0",
+    "creator": "Aznora IDE"
 })";
 
     return true;
