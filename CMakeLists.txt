@@ -16,6 +16,7 @@ add_library(aznora_core
     src/core/filesystem/FileExplorer.cpp
     src/core/filesystem/FileSystemService.cpp
     src/core/git/GitService.cpp
+    src/core/languages/LanguageDetector.cpp
     src/core/project/Project.cpp
     src/core/search/SearchEngine.cpp
     src/core/settings/Settings.cpp
