@@ -1,0 +1,9 @@
+[package]
+name = "aznora-app"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+
+[dependencies]
+aznora-core = { path = "../aznora-core" }
