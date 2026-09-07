@@ -9,4 +9,6 @@ public:
     bool createWorkspace(
         const std::string& name,
         const std::filesystem::path& location);
+
+    bool openWorkspace(const std::filesystem::path& path);
 };
