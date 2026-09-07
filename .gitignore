@@ -5,6 +5,9 @@ cmake-build-*/
 .vscode/
 compile_commands.json
 
+!src/core/build/
+!src/core/build/**
+
 *.o
 *.obj
 *.a
