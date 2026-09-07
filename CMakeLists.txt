@@ -19,7 +19,7 @@ add_library(aznora_core
 )
 
 target_include_directories(aznora_core
-    PRIVATE
+    PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 

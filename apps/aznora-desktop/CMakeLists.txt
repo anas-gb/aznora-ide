@@ -3,11 +3,11 @@ add_executable(Aznora
 )
 
 target_link_libraries(Aznora
-    PRIVATE
+    PUBLIC
         aznora_core
 )
 
-target_compile_options(Aznora PRIVATE
+target_compile_options(Aznora PUBLIC
     $<$<CXX_COMPILER_ID:MSVC>:/W4 /permissive->
     $<$<NOT:$<CXX_COMPILER_ID:MSVC>>:-Wall -Wextra -Wpedantic>
 )

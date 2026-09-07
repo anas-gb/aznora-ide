@@ -1,10 +1,12 @@
 #pragma once
 
-namespace aznora::core {
+#include <filesystem>
+#include <string>
 
-class WorkspaceManager {
+class WorkspaceManager
+{
 public:
-    WorkspaceManager();
+    bool createWorkspace(
+        const std::string& name,
+        const std::filesystem::path& location);
 };
-
-} // namespace aznora::core
