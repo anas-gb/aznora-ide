@@ -27,3 +27,15 @@ pub enum CoreError {
 }
 
 pub type CoreResult<T> = Result<T, CoreError>;
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn creates_workspace() {
+        let workspace = Workspace::new("demo", "/tmp/demo");
+        assert_eq!(workspace.name, "demo");
+        assert_eq!(workspace.root, PathBuf::from("/tmp/demo"));
+    }
+}
