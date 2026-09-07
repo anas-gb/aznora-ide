@@ -1,8 +1,11 @@
 #pragma once
+
 #include <filesystem>
 #include <string>
-struct workspace
+
+struct Workspace
 {
     std::string name;
-    std::filesystem::path path;
+    std::string version;
+    std::filesystem::path rootPath;
 };

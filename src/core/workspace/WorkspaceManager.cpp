@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <cstdlib>
 #include <string>
 
 namespace {
@@ -62,20 +63,28 @@ R"({
     return true;
 }
 
-bool WorkspaceManager::openWorkspace(const std::filesystem::path& path)
+bool WorkspaceManager::validateWorkspace(const std::filesystem::path& path) const
 {
     namespace fs = std::filesystem;
 
     const fs::path metadataPath = path / ".aznora" / "workspace.json";
 
-    if (!fs::is_directory(path) || !fs::is_directory(path / ".aznora") ||
-        !fs::is_regular_file(metadataPath))
-        return false;
+    return fs::is_directory(path) && fs::is_directory(path / ".aznora") &&
+           fs::is_regular_file(metadataPath);
+}
+
+std::optional<Workspace> WorkspaceManager::openWorkspace(
+    const std::filesystem::path& path)
+{
+    if (!validateWorkspace(path))
+        return std::nullopt;
+
+    const std::filesystem::path metadataPath = path / ".aznora" / "workspace.json";
 
     std::ifstream workspace(metadataPath);
 
     if (!workspace)
-        return false;
+        return std::nullopt;
 
     const std::string content(
         (std::istreambuf_iterator<char>(workspace)),
@@ -84,11 +93,41 @@ bool WorkspaceManager::openWorkspace(const std::filesystem::path& path)
     const std::string version = readJsonValue(content, "version");
 
     if (name.empty() || version.empty())
-        return false;
+        return std::nullopt;
+
+    const Workspace currentWorkspace{name, version, path};
 
     std::cout << "Opening workspace...\n"
               << "Name: " << name << '\n'
               << "Version: " << version << std::endl;
 
+    updateRecentWorkspaces(path);
+    return currentWorkspace;
+}
+
+bool WorkspaceManager::updateRecentWorkspaces(
+    const std::filesystem::path& path) const
+{
+    const char* home = std::getenv("HOME");
+
+    if (home == nullptr || *home == '\0')
+        return false;
+
+    namespace fs = std::filesystem;
+    const fs::path settingsDirectory = fs::path(home) / ".aznora";
+    const fs::path recentPath = settingsDirectory / "recent.json";
+
+    std::error_code error;
+    fs::create_directories(settingsDirectory, error);
+
+    if (error)
+        return false;
+
+    std::ofstream recent(recentPath);
+
+    if (!recent)
+        return false;
+
+    recent << "[\n    \"" << path.string() << "\"\n]\n";
     return true;
 }
