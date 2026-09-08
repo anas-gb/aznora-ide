@@ -10,6 +10,12 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
+
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
+
 add_library(aznora_core
     src/core/build/BuildService.cpp
     src/core/editor/EditorManager.cpp
@@ -30,10 +36,31 @@ target_include_directories(aznora_core
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-add_subdirectory(apps/aznora-desktop)
-
 if(MSVC)
     target_compile_options(aznora_core PRIVATE /W4 /permissive-)
 else()
     target_compile_options(aznora_core PRIVATE -Wall -Wextra -Wpedantic)
+endif()
+
+add_executable(Aznora
+    src/ui/main.cpp
+    src/ui/MainWindow.hpp
+    src/ui/MainWindow.cpp
+)
+
+target_include_directories(Aznora
+    PRIVATE
+        ${CMAKE_CURRENT_SOURCE_DIR}/src
+)
+
+target_link_libraries(Aznora
+    PRIVATE
+        aznora_core
+        Qt6::Widgets
+)
+
+if(MSVC)
+    target_compile_options(Aznora PRIVATE /W4 /permissive-)
+else()
+    target_compile_options(Aznora PRIVATE -Wall -Wextra -Wpedantic)
 endif()
