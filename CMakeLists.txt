@@ -46,6 +46,20 @@ add_executable(Aznora
     src/ui/main.cpp
     src/ui/MainWindow.hpp
     src/ui/MainWindow.cpp
+    src/ui/BuildController.hpp
+    src/ui/BuildController.cpp
+    src/ui/EditorController.hpp
+    src/ui/EditorController.cpp
+    src/ui/GitController.hpp
+    src/ui/GitController.cpp
+    src/ui/SearchController.hpp
+    src/ui/SearchController.cpp
+    src/ui/SyntaxHighlighter.hpp
+    src/ui/SyntaxHighlighter.cpp
+    src/ui/TerminalController.hpp
+    src/ui/TerminalController.cpp
+    src/ui/WorkspaceTreeController.hpp
+    src/ui/WorkspaceTreeController.cpp
 )
 
 target_include_directories(Aznora
